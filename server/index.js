@@ -1,6 +1,7 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';  // package for using .env file
+import userRouter from './routes/user.route.js';
 
 dotenv.config();
 
@@ -21,3 +22,5 @@ app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}!`);
   }
 );
+
+app.use('/api/user', userRouter);
