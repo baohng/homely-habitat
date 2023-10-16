@@ -1,6 +1,6 @@
 import User from "../models/user.model.js";
 
-export const signup = async (req, res) => {
+export const signup = async (req, res, next) => {
   // destructuring the req.body to save to database
   const { username, email, password } = req.body;
   
@@ -12,7 +12,7 @@ export const signup = async (req, res) => {
     await newUser.save(); // wait mongoose save data
     res.status(201).json('User created successfully!'); // send announce that user created
   } catch (error) {
-    res.status(500).json(error.message);  // send the error to user instead of backend
+    next(error);  // send the error to user instead of backend
   }
 
 };
