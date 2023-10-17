@@ -1,11 +1,13 @@
 import User from "../models/user.model.js";
+import bcryptjs from 'bcryptjs';
 
 export const signup = async (req, res, next) => {
   // destructuring the req.body to save to database
   const { username, email, password } = req.body;
-  
-  // TODO: encrypt the password before save to db
-  const newUser = new User({username, email, password});
+
+  // encrypt the password
+  const hashedPassword = bcryptjs.hashSync(password, 10);
+  const newUser = new User({ username, email, password: hashedPassword });
   
   // catch the exceptions with user input
   try {
